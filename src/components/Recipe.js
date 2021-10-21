@@ -3,12 +3,21 @@ import IngredientList from "./IngredientList";
 import { RecipeContext } from "./App";
 
 export default function Recipe(props) {
-  const { id, name, cookTime, servings, instructions, ingredients } = props;
+  const { id, name, cookTime, servings, instructions, ingredients, visible } =
+    props;
 
   const { handleRecipeDelete, handleRecipeSelect } = useContext(RecipeContext);
 
+  function hide() {
+    if (visible === true) {
+      return "recipe";
+    } else {
+      return "recipe hidden";
+    }
+  }
+
   return (
-    <div className="recipe">
+    <div className={hide()}>
       <div className="recipe__header">
         <h3 className="recipe__title">{name}</h3>
         <div>

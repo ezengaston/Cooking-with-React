@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RecipeList from "./RecipeList";
 import RecipeEdit from "./RecipeEdit";
+import RecipeSearch from "./RecipeSearch";
 import "../css/app.css";
 import { uuid } from "uuidv4";
 
@@ -16,6 +17,12 @@ function App() {
 
   useEffect(() => {
     const recipeJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (recipeJSON != null) {
+      JSON.parse(recipeJSON).forEach((value) => {
+        value.visible = true;
+        return value;
+      });
+    }
     if (recipeJSON != null) setRecipes(JSON.parse(recipeJSON));
   }, []);
 
@@ -49,6 +56,7 @@ function App() {
       cookTime: "",
       instructions: "",
       ingredients: [{ id: uuid(), name: "", amount: "" }],
+      visible: true,
     };
 
     setSelectedRecipeId(newRecipe.id);
@@ -62,8 +70,22 @@ function App() {
     setRecipes(recipes.filter((recipe) => recipe.id !== id));
   }
 
+  function handleSearch(input) {
+    const match = recipes.map((recipe) => {
+      if (!recipe.name.toLowerCase().match(input.toLowerCase())) {
+        recipe.visible = false;
+        return recipe;
+      } else {
+        recipe.visible = true;
+        return recipe;
+      }
+    });
+    setRecipes(match);
+  }
+
   return (
     <RecipeContext.Provider value={recipeContextValue}>
+      <RecipeSearch handleSearch={handleSearch} />
       <RecipeList recipes={recipes} />
       {selectedRecipe && <RecipeEdit recipe={selectedRecipe} />}
     </RecipeContext.Provider>
@@ -90,6 +112,7 @@ const sampleRecipes = [
         amount: "1 Tbs",
       },
     ],
+    visible: true,
   },
   {
     id: 2,
@@ -109,6 +132,7 @@ const sampleRecipes = [
         amount: "2 Tbs",
       },
     ],
+    visible: true,
   },
 ];
 

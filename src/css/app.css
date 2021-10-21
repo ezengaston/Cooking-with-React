@@ -5,6 +5,7 @@
 @import "ingredient-list.css";
 @import "recipe.css";
 @import "recipe-edit.css";
+@import "recipe-search.css";
 
 *,
 *::before,
