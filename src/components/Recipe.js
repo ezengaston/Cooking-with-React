@@ -1,10 +1,19 @@
 import React, { useContext } from "react";
 import IngredientList from "./IngredientList";
 import { RecipeContext } from "./App";
+import CreatedByList from "./CreatedByList";
 
 export default function Recipe(props) {
-  const { id, name, cookTime, servings, instructions, ingredients, visible } =
-    props;
+  const {
+    id,
+    name,
+    cookTime,
+    servings,
+    instructions,
+    ingredients,
+    visible,
+    createdBy,
+  } = props;
 
   const { handleRecipeDelete, handleRecipeSelect } = useContext(RecipeContext);
 
@@ -53,6 +62,12 @@ export default function Recipe(props) {
         <span className="recipe__label">Ingredients:</span>
         <div className="recipe__value recipe__value--indented">
           <IngredientList ingredients={ingredients}></IngredientList>
+        </div>
+      </div>
+      <div className="recipe__row">
+        <span className="recipe__label">Created By:</span>
+        <div className="recipe__value recipe__value--indented">
+          <CreatedByList createdBy={createdBy} />
         </div>
       </div>
     </div>

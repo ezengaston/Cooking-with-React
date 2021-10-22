@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import RecipeIngredientEdit from "./RecipeIngredientEdit";
+import RecipeCreatedByEdit from "./RecipeCreatedByEdit";
 import { RecipeContext } from "./App";
 import { uuid } from "uuidv4";
 
@@ -30,6 +31,27 @@ export default function RecipeEdit({ recipe }) {
   function handleIngredientDelete(id) {
     handleChange({
       ingredients: recipe.ingredients.filter((i) => i.id !== id),
+    });
+  }
+
+  function handleAuthorsChange(id, authors) {
+    const newAuthors = [...recipe.createdBy];
+    const index = newAuthors.findIndex((i) => i.id === id);
+    newAuthors[index] = authors;
+    handleChange({ createdBy: newAuthors });
+  }
+
+  function handleAuthorAdd() {
+    const newAuthor = {
+      id: uuid(),
+      name: "",
+    };
+    handleChange({ createdBy: [...recipe.createdBy, newAuthor] });
+  }
+
+  function handleAuthorDelete(id) {
+    handleChange({
+      createdBy: recipe.createdBy.filter((i) => i.id !== id),
     });
   }
 
@@ -112,6 +134,25 @@ export default function RecipeEdit({ recipe }) {
           onClick={() => handleIngredientAdd()}
         >
           Add Ingredient
+        </button>
+      </div>
+      <br />
+      <label className="recipe-edit__label">Created By</label>
+      <div className="recipe-edit__author-grid">
+        <div>Name</div>
+        <div></div>
+        {recipe.createdBy.map((authors) => (
+          <RecipeCreatedByEdit
+            key={authors.id}
+            authors={authors}
+            handleAuthorsChange={handleAuthorsChange}
+            handleAuthorDelete={handleAuthorDelete}
+          />
+        ))}
+      </div>
+      <div className="recipe-edit__add-ingredient-btn-container">
+        <button className="btn btn--primary" onClick={() => handleAuthorAdd()}>
+          Add Author
         </button>
       </div>
     </div>

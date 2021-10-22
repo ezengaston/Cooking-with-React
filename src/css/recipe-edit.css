@@ -65,3 +65,11 @@ textarea.recipe-edit__input {
     grid-template-columns: 1fr;
   }
 }
+
+.recipe-edit__author-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, auto);
+  margin-top: 20px;
+  margin-left: 40px;
+}

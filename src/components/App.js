@@ -57,6 +57,7 @@ function App() {
       instructions: "",
       ingredients: [{ id: uuid(), name: "", amount: "" }],
       visible: true,
+      createdBy: [{ id: uuid(), name: "" }],
     };
 
     setSelectedRecipeId(newRecipe.id);
@@ -113,6 +114,10 @@ const sampleRecipes = [
       },
     ],
     visible: true,
+    createdBy: [
+      { id: 1, name: "Kyle" },
+      { id: 2, name: "Ezen" },
+    ],
   },
   {
     id: 2,
@@ -133,6 +138,10 @@ const sampleRecipes = [
       },
     ],
     visible: true,
+    createdBy: [
+      { id: 1, name: "Kyle" },
+      { id: 2, name: "Ezen" },
+    ],
   },
 ];
 

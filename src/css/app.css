@@ -6,6 +6,7 @@
 @import "recipe.css";
 @import "recipe-edit.css";
 @import "recipe-search.css";
+@import "authors-list.css";
 
 *,
 *::before,
